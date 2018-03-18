@@ -1,14 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Midi-Time</title>
-    <link rel="stylesheet" href="css/reset.css">
-  </head>
-  <body>
-    <canvas id="my-canvas"></canvas>
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/webmidi"></script>
-  <script type="text/javascript" src="js/midi-controller.js"></script>
-  <script type="text/javascript" src="js/visual-output.js"></script>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Midi Visualizer</title>
+  <meta name="description" content="An online midi visualizer">
+  <meta name="author" content="Eric Schirtzinger">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="" style="text-align: center; margin-top: 2em">
+      <img width="auto" height="150px" style="margin: auto" src="images/Midi-Visualizer.svg" alt="M.V. Logo">
+    </div>
+    <div class="row" style="margin-top: 2em">
+      <div class="one-half column" style="">
+        <h2>Midi Visualizer</h2>
+        <p>Welcome to the Midi Visualizer, an online visualization of your beats! Choose from one of our visualizations, we're always working new ones!</p>
+        <p>If you are a developer, check out our <a href="https://github.com/eschirtz/midi-visualizer">GitHub</a> to contribute and create your own visualizations</p>
+      </div>
+    </div>
+    <div class="row">
+      <a href="visualizers/chunky.html">
+      <button type="button" name="button" link>Chunky</button>
+      </a>
+      <button type="button" name="button">Drop Down</button>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
 </html>
