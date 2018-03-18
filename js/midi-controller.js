@@ -1,5 +1,6 @@
 /**
-  * Check if script is loaded
+  * Copy this script and paste it at the bottom of your
+  * visualizer script
 **/
 WebMidi.enable(function (err) {
   if (err) {
