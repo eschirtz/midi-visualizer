@@ -26,6 +26,11 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
 
+  <!-- Scripts
+  __________________________________________________ -->
+  <script type="text/javascript" src="vendors/jQuery/jquery-3.2.1.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/webmidi"></script>
+
 </head>
 <body>
 
@@ -35,11 +40,14 @@
     <div class="" style="text-align: center; margin-top: 2em">
       <img width="auto" height="150px" style="margin: auto" src="images/Midi-Visualizer.svg" alt="M.V. Logo">
     </div>
-    <div class="row" style="margin-top: 2em">
-      <div class="one-half column" style="">
-        <h2>Midi Visualizer</h2>
-        <p>Welcome to the Midi Visualizer, an online visualization of your beats! Choose from one of our visualizations, we're always working new ones!</p>
+    <div class="row" style="margin-top: 2em; text-align: left">
+      <div class="" style="">
+        <!-- <h2>Midi Visualizer</h2> -->
+        <p>Welcome to <b>Midi Visualizer</b>, an online visualization of your live performances! Select from one of the following visualizations.</p>
         <p>If you are a developer, check out our <a href="https://github.com/eschirtz/midi-visualizer">GitHub</a> to contribute and create your own visualizations</p>
+        <hr>
+        <div id="midi-device-label"></div>
+        <hr>
       </div>
     </div>
     <div class="row">
@@ -51,4 +59,5 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+<script type="text/javascript" src="js/midi-init.js"></script>
 </html>
