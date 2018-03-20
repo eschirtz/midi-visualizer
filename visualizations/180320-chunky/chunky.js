@@ -63,16 +63,24 @@ WebMidi.enable(function (err) {
   // Log inputs
   console.log(WebMidi.inputs);
 
-  // Globals
-  var input = WebMidi.inputs[0];
+  if(WebMidi.inputs[INPUT_NUMBER] != null){
+    var input = WebMidi.inputs[INPUT_NUMBER];
 
-  /**
-    * Event Handlers
-   **/
-  input.addListener('noteon', "all",function (e) {
-      drawNote(e.note.name, e.note.octave, e.note.velocity);
-  });
-  input.addListener('controlchange', "all", function(e){
-    drawFader(e.value);
-  });
+    /**
+      * Event Handlers
+     **/
+    input.addListener('noteon', "all",function (e) {
+        drawNote(e.note.name, e.note.octave, e.note.velocity);
+    });
+    input.addListener('controlchange', "all", function(e){
+      drawFader(e.value);
+    });
+  }
 });
+// Update canvas size
+window.onresize = function(){
+  canvas.height = window.innerHeight;
+  canvas.width = window.innerWidth;
+  ctx.fillStyle = "lightblue";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+}
