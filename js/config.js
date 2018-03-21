@@ -8,4 +8,4 @@ const CANVAS_ID = "main-canvas";
 // SETTINGS //
 var INPUT_NUMBER = 0;
 const DEFAULT_BG_COLOR = 'lightblue';
-const TIMING_FILTER = 0.5; 
+const TIMING_FILTER = 0.5;
