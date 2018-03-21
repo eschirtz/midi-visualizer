@@ -1,6 +1,7 @@
 // GLOBAL VARIABLES
 var visualizationData = []; // Holds VisData objects to conditionally inflate DOM elements
 var midiDeviceFound = false;
+var midiInput;
 
 $(document).ready(function(){
   /**
@@ -17,9 +18,10 @@ $(document).ready(function(){
    /** Set up the document **/
    // Input devices
     var deviceNames = [];
-    var input = WebMidi.input;
+    var input = WebMidi.inputs;
     if(input != null){
       midiDeviceFound = true;
+      midiInput = input[INPUT_NUMBER]; 
       for(i=0; i<input.length; i++){
         deviceNames.push(input[0].name);
       }
@@ -46,7 +48,7 @@ $(document).ready(function(){
         });
       // Add the button to the menu
       $("#vis-menu").append(button);
-      $("#vis-menu").append($("<br/>")); 
+      $("#vis-menu").append($("<br/>"));
     });
   });
 });

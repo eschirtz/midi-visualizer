@@ -5,6 +5,7 @@ var visName = "Demo"
 var visualization = new VisData(visName);
 visualization.image = new Image();
 visualization.image.src = 'images/favicon.png';
+var backgroundColor = DEFAULT_BG_COLOR;
 
 /**
  * run(): Called from index.html to begin visualizer
@@ -37,7 +38,7 @@ visualization.run = function(){
   function Note(x, y, color){
     this.x = x;
     this.y = y;
-    this.speed = 0;
+    this.speed = 20;
     this.time = 0;
     this.scale = 15;
     this.color = color;
@@ -51,17 +52,15 @@ visualization.run = function(){
     }
     this.render = function(context){
       context.fillStyle = this.color;
-      console.log("x: " + this.x + " y: " + this.y + " speed: " + this.speed);
       context.fillRect(this.x,this.y,this.scale,this.scale);
     }
   }
   var notes = [];
-  notes.push(new Note(canvas[0].width/2, 0, 'purple'));
 
   // ** ANIMATION LOOP ** //
   function animationLoop(){
     // Clear Screen
-    context.fillStyle = DEFAULT_BG_COLOR;
+    context.fillStyle = backgroundColor;
     context.fillRect(0,0,canvas[0].width,canvas[0].height);
     // Update
     notes.forEach(function(note){
@@ -79,34 +78,20 @@ visualization.run = function(){
   // Begin animation loop
   animationLoop();
 
+
   // ** MIDI HANDLERS ** //
-  WebMidi.enable(function (err) {
-    if (err) {
-      console.log("WebMidi could not be enabled.", err);
-    } else {
-      console.log("WebMidi enabled!");
-    }
-    // Log inputs
-    console.log(WebMidi.inputs);
-
-    // Globals
-    var input = WebMidi.inputs[0];
-
-    /**
-      * Event Handlers
-     **/
-    input.addListener('noteon', "all",function (e) {
-        drawNote(e.note.name, e.note.octave, e.note.velocity);
-    });
-    input.addListener('controlchange', "all", function(e){
-      drawFader(e.value);
-    });
+  midiInput.addListener('noteon', "all",function (e) {
+      drawNote(e.note.name, e.note.octave, e.note.velocity);
   });
+  midiInput.addListener('controlchange', "all", function(e){
+    drawFader(e.value);
+  });
+
   function drawNote(note, octave, intensity, context){
   var note = note.charAt(0);
-  var deltaX = canvas.width / 7;
+  var deltaX = canvas[0].width / 7;
   var x;
-  var context = context | ctx;
+  var y = -15;
   var bgColor = "black";
   switch (note) {
     case 'A':
@@ -135,12 +120,19 @@ visualization.run = function(){
       break;
     case 'G':
       bgColor = "violet";
-      x = deltaX * 6; 
+      x = deltaX * 6;
       break;
     default:
       // none
   }
-  notes.push(new Note(x, y, bgColor));
+  var note = new Note(x, y, bgColor);
+  console.log(note);
+  notes.push(note);
+}
+function drawFader(value){
+  var hue = 360 * (value/128);
+  var color = "hsl(" + hue + ", 100%, 50%)";
+  backgroundColor = color;
 }
   // ** UTILITY FUNCTIONS ** //
   /**
@@ -149,7 +141,7 @@ visualization.run = function(){
   window.onresize = function(){
     canvas.height(window.innerHeight);
     canvas.width(window.innerWidth);
-    context.fillStyle = DEFAULT_BG_COLOR;
+    context.fillStyle = backgroundColor;
     context.fillRect(0,0,canvas[0].width,canvas[0].height);
   }
 }
