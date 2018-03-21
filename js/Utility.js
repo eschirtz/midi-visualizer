@@ -8,7 +8,7 @@ function Utility(){
   this.now = 0;
   this.then = 0;
   this.delta = 0;
-  this.gravity = 2;
+  this.gravity = 20;
   this.setDelta = function(){
     this.now = Date.now();
     // Seconds since last frame
@@ -19,16 +19,29 @@ function Utility(){
     }
     this.then = this.now;
   }
-}
-var Utility = new Utility();
-// Shake out the edge cases
-var counter = 0;
-function shakeOff(){
-  Utility.setDelta();
-  if(counter < 10){
-    window.requestAnimationFrame(shakeOff);
+  this.initDelta = function(){
+    this.now = Date.now();
+    this.then = Date.now();
   }
-  counter++;
-  console.log(Utility.delta);
+  // ** UI ELEMENTS ** //
+  this.makeToast = function(text){
+    var toast = $("<div class='toast'/>");
+    toast.html("<p>" + text + "</p>");
+    $("body").append(toast);
+
+    // Wait to fade in
+    setTimeout(function(){
+      $(".toast").addClass("active");
+    }, TOAST_FADE_WAIT);
+    // Wait to fade out
+    setTimeout(function(){
+      $(".toast").removeClass("active");
+    }, TOAST_UP_TIME);
+    // Wait to kill element
+    setTimeout(function(){
+      $(".toast").remove();
+    }, TOAST_UP_TIME + TOAST_FADE_TIME);
+  }
 }
-shakeOff();
+// Create the global Utility object
+var Utility = new Utility();

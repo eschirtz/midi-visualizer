@@ -1,12 +1,12 @@
 /** FILE-NAME: VISUALISATION NAME HERE
  *  AUTHOR: FIRST LAST
  *
- *  Add your code starting at line 37!
  */
 var visName = "Template";
 var visualization = new VisData(visName);
 visualization.image = new Image();
 visualization.image.src = 'images/favicon.png';
+var backgroundColor = DEFAULT_BG_COLOR;
 
 /**
  * run(): Called from index.html to begin visualizer
@@ -17,14 +17,12 @@ visualization.image.src = 'images/favicon.png';
  */
 visualization.run = function(){
   // ** SETUP AND INITIALIZATION ** //
-  /**
-   * Set up for the canvas and globals
-   */
+  // Remove any other visualizations
   $("#" + CANVAS_ID).remove();
   var canvas = $("<canvas id='" + CANVAS_ID + "'/>");
   var context = canvas[0].getContext('2d');
-  canvas.width(window.innerWidth);
-  canvas.height(window.innerHeight);
+  canvas[0].width = window.innerWidth;
+  canvas[0].height = window.innerHeight;
   canvas.css({
     'background-color' : DEFAULT_BG_COLOR,
     'position' : 'fixed',
@@ -33,13 +31,20 @@ visualization.run = function(){
   });
   $("body").append(canvas);
   visualization.meta.isActive = true;
+  // Display usage message
+  Utility.makeToast(ESC_MESSAGE);
 
-  // ** ADD YOUR CODE HERE! ** //
+  // ** ADD YOUR CODE HERE ** //
+  // ** MAY ALSO INCLUDE DEPENDENCIES ** //
 
   // ** ADD VISUALIZER CODE BELOW ** //
   function animationLoop(){
+    // Clear screen for re-draw
+    context.fillStyle = backgroundColor;
+    context.fillRect(0,0,canvas[0].width,canvas[0].height);
+    // ** UPDATE AND RENDER ** //
 
-    // ** PREPARE FOR NEXT FRAME ** //
+    // prepare for next frame
     if(!visualization.meta.isActive){
       return;
     }
@@ -47,6 +52,7 @@ visualization.run = function(){
     window.requestAnimationFrame(animationLoop);
   }
   // Begin animation loop
+  Utility.initDelta();
   animationLoop();
 
   // ** UTILITY FUNCTIONS ** //
@@ -54,8 +60,8 @@ visualization.run = function(){
     * Function to keep canvas full screen
    **/
   window.onresize = function(){
-    canvas.height(window.innerHeight);
-    canvas.width(window.innerWidth);
+    canvas[0].height = window.innerHeight;
+    canvas[0].width = window.innerWidth;
     context.fillStyle = DEFAULT_BG_COLOR;
     context.fillRect(0,0,canvas[0].width,canvas[0].height);
   }
