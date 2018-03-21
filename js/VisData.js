@@ -9,7 +9,7 @@
    this.image = img || null;
    // Launch the application
    this.run = function(){
-     alert("Warning: Function has not been correctly implemented");
+     alert("Visualization application implemented here");
    }
    // Root relative path or absolute path to be html file
    this.url = DOCUMENT_ROOT + "visualizations/000000-Template/template.html";

@@ -3,6 +3,7 @@
  */
 var visName = "Demo"
 var visualization = new VisData(visName);
+visualization.meta.files = "Note.js";
 visualization.image = new Image();
 visualization.image.src = 'images/favicon.png';
 var backgroundColor = DEFAULT_BG_COLOR;
@@ -22,8 +23,8 @@ visualization.run = function(){
   $("#" + CANVAS_ID).remove();
   var canvas = $("<canvas id='" + CANVAS_ID + "'/>");
   var context = canvas[0].getContext('2d');
-  canvas.width(window.innerWidth);
-  canvas.height(window.innerHeight);
+  canvas[0].width = window.innerWidth;
+  canvas[0].height = window.innerHeight;
   canvas.css({
     'background-color' : DEFAULT_BG_COLOR,
     'position' : 'fixed',
@@ -31,30 +32,11 @@ visualization.run = function(){
     'left' : 0
   });
   $("body").append(canvas);
+
+  Utility.makeToast(ESC_MESSAGE);
   visualization.meta.isActive = true;
 
   // ** ADD VISUALIZER CODE BELOW ** //
-  // Note object
-  function Note(x, y, color){
-    this.x = x;
-    this.y = y;
-    this.speed = 20;
-    this.time = 0;
-    this.scale = 15;
-    this.color = color;
-    this.update = function(delta){
-      // time since birth of the Note
-      this.time = this.time + delta;
-      // Accelerate the Note
-      this.speed = this.speed + Utility.gravity * this.time;
-      // Move Note
-      this.y = this.y + this.speed * delta;
-    }
-    this.render = function(context){
-      context.fillStyle = this.color;
-      context.fillRect(this.x,this.y,this.scale,this.scale);
-    }
-  }
   var notes = [];
 
   // ** ANIMATION LOOP ** //
@@ -76,16 +58,19 @@ visualization.run = function(){
     window.requestAnimationFrame(animationLoop);
   }
   // Begin animation loop
+  Utility.initDelta();
   animationLoop();
 
 
   // ** MIDI HANDLERS ** //
-  midiInput.addListener('noteon', "all",function (e) {
-      drawNote(e.note.name, e.note.octave, e.note.velocity);
-  });
-  midiInput.addListener('controlchange', "all", function(e){
-    drawFader(e.value);
-  });
+  if(midiInput){
+    midiInput.addListener('noteon', "all",function (e) {
+        drawNote(e.note.name, e.note.octave, e.note.velocity);
+    });
+    midiInput.addListener('controlchange', "all", function(e){
+      drawFader(e.value);
+    });
+  }
 
   function drawNote(note, octave, intensity, context){
   var note = note.charAt(0);
@@ -139,8 +124,8 @@ function drawFader(value){
     * Function to keep canvas full screen
    **/
   window.onresize = function(){
-    canvas.height(window.innerHeight);
-    canvas.width(window.innerWidth);
+    canvas[0].height = window.innerHeight;
+    canvas[0].width = window.innerWidth;
     context.fillStyle = backgroundColor;
     context.fillRect(0,0,canvas[0].width,canvas[0].height);
   }

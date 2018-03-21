@@ -10,6 +10,7 @@
 
 /* Table of contents
 ––––––––––––––––––––––––––––––––––––––––––––––––––
+- CUSTOM CLASSES
 - Grid
 - Base Styles
 - Typography
@@ -25,7 +26,40 @@
 - Media Queries
 */
 
-
+/* CUSTOM CLASSES
+__________________________________________________ */
+.toast {
+  position: sticky;
+  text-align: center;
+  margin: auto;
+  bottom: 2em;
+  font-size: 1.25em;
+  color: rgb(255,255,255);
+  background-color: rgba(0,0,0,.25);
+  border-radius: 4em;
+  width: 300px;
+  line-height: 2.5em;
+  letter-spacing: 1px;
+  opacity: 0;
+  -webkit-transition: opacity 0.25s; /* Safari */
+  transition: opacity 0.5s;
+}
+.active {
+  opacity: 1.0;
+}
+.prettyprint {
+  background: #fff;
+  font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+  font-size: 1.2rem;
+  padding: 2.5rem 3rem;
+  -webkit-font-smoothing: antialiased;
+}
+.code-example {
+  margin-top: 1.5rem;
+  margin-bottom: 0; }
+.code-example-body {
+  white-space: pre-line;
+  word-wrap: break-word }
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {

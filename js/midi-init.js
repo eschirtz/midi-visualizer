@@ -21,7 +21,7 @@ $(document).ready(function(){
     var input = WebMidi.inputs;
     if(input != null){
       midiDeviceFound = true;
-      midiInput = input[INPUT_NUMBER]; 
+      midiInput = input[INPUT_NUMBER];
       for(i=0; i<input.length; i++){
         deviceNames.push(input[0].name);
       }
@@ -42,13 +42,14 @@ $(document).ready(function(){
       // Create the button element
       var button = $('<button/>',
         {
+          type: "button",
           class: "button-primary",
           text: vis.name,
-          click: vis.run
+          click: vis.run,
         });
       // Add the button to the menu
       $("#vis-menu").append(button);
-      $("#vis-menu").append($("<br/>"));
+      $("#vis-menu").append("&nbsp;");
     });
   });
 });
