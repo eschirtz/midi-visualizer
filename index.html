@@ -28,8 +28,9 @@
 
   <!-- Scripts
   __________________________________________________ -->
-  <script type="text/javascript" src="vendors/jQuery/jquery-3.2.1.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/webmidi"></script>
+  <script type="text/javascript" src="vendors/jQuery/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
 
 </head>
 <body>
@@ -42,22 +43,25 @@
     </div>
     <div class="row" style="margin-top: 2em; text-align: left">
       <div class="" style="">
-        <!-- <h2>Midi Visualizer</h2> -->
-        <p>Welcome to <b>Midi Visualizer</b>, an online visualization of your live performances! Select from one of the following visualizations.</p>
+        <p>Welcome to <b>Midi Visualizer</b>, an online visualization of your live performances! This application is in the early statges
+        of development, but we are working to bring more intricate visualations in the near future. All you need is a midi device and a compatible browser.</p>
+        <p>Select from one of the following visualizations.</p>
         <p>If you are a developer, check out our <a href="https://github.com/eschirtz/midi-visualizer">GitHub</a> to contribute and create your own visualizations</p>
         <hr>
-        <div id="midi-device-label"></div>
+        <div class="row" id="midi-device-label"></div>
         <hr>
       </div>
     </div>
-    <div class="row">
-      <button onclick="window.location.href='visualizers/chunky.html'" type="button" name="button" link>Chunky</button>
-      <button onclick="window.location.href='visualizers/falldown.html'" type="button" name="button">Drop Down</button>
-    </div>
+    <div class="row" id="vis-menu"></div>
   </div>
-
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+<!-- Custom Scripts -->
 <script type="text/javascript" src="js/midi-init.js"></script>
+<script type="text/javascript" src="js/Utility.js"></script>
+<script type="text/javascript" src="js/VisData.js"></script>
+<!-- ADD VISUALIZATION SCRIPTS BELOW -->
+<script type="text/javascript" src="js/visualizations/000000-Template/template.js"></script>
+<script type="text/javascript" src="js/visualizations/180320-Demo/demo.js"></script>
 </html>

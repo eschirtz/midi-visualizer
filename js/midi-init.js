@@ -1,3 +1,7 @@
+// GLOBAL VARIABLES
+var visualizationData = []; // Holds VisData objects to conditionally inflate DOM elements
+var midiDeviceFound = false;
+
 $(document).ready(function(){
   /**
     * Check to see if the API loads
@@ -10,18 +14,16 @@ $(document).ready(function(){
         console.log("WebMidi enabled!");
       }
 
-   /**
-     * Set up the document
-    **/
+   /** Set up the document **/
+   // Input devices
     var deviceNames = [];
-    const MIDI_ERROR_MSG = "<h4>No MIDI device detected</h4>" +
-                           "<p>First try refreshing your window a couple times, if that " +
-                           "doesn't work, next try quitting your browser, ensuring your MIDI device" +
-                           "is plugged in, and relaunching your browser.</p>";
-
-    WebMidi.inputs.forEach(function(input){
-      deviceNames.push(input.name);
-    });
+    var input = WebMidi.input;
+    if(input != null){
+      midiDeviceFound = true;
+      for(i=0; i<input.length; i++){
+        deviceNames.push(input[0].name);
+      }
+    }
     // Create message
     var deviceListHtml = MIDI_ERROR_MSG;
     if(deviceNames.length > 0){
@@ -32,9 +34,19 @@ $(document).ready(function(){
       deviceListHtml += "</ul>";
     }
     // Print message
-
     $("#midi-device-label").html(deviceListHtml);
-
-
+    // Visualization Menu
+    visualizationData.forEach(function(vis){
+      // Create the button element
+      var button = $('<button/>',
+        {
+          class: "button-primary",
+          text: vis.name,
+          click: vis.run
+        });
+      // Add the button to the menu
+      $("#vis-menu").append(button);
+      $("#vis-menu").append($("<br/>")); 
+    });
   });
 });
