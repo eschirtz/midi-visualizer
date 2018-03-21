@@ -39,10 +39,9 @@ visualization.run = function(){
     this.y = y;
     this.speed = 0;
     this.time = 0;
-    this.scale = 0.1;
+    this.scale = 15;
     this.color = color;
     this.update = function(delta){
-      this.scale += this.speed * delta / 10;
       // time since birth of the Note
       this.time = this.time + delta;
       // Accelerate the Note
@@ -53,7 +52,7 @@ visualization.run = function(){
     this.render = function(context){
       context.fillStyle = this.color;
       console.log("x: " + this.x + " y: " + this.y + " speed: " + this.speed);
-      context.fillRect(this.x,this.y,this.scale*10,this.scale*10);
+      context.fillRect(this.x,this.y,this.scale,this.scale);
     }
   }
   var notes = [];
@@ -80,6 +79,69 @@ visualization.run = function(){
   // Begin animation loop
   animationLoop();
 
+  // ** MIDI HANDLERS ** //
+  WebMidi.enable(function (err) {
+    if (err) {
+      console.log("WebMidi could not be enabled.", err);
+    } else {
+      console.log("WebMidi enabled!");
+    }
+    // Log inputs
+    console.log(WebMidi.inputs);
+
+    // Globals
+    var input = WebMidi.inputs[0];
+
+    /**
+      * Event Handlers
+     **/
+    input.addListener('noteon', "all",function (e) {
+        drawNote(e.note.name, e.note.octave, e.note.velocity);
+    });
+    input.addListener('controlchange', "all", function(e){
+      drawFader(e.value);
+    });
+  });
+  function drawNote(note, octave, intensity, context){
+  var note = note.charAt(0);
+  var deltaX = canvas.width / 7;
+  var x;
+  var context = context | ctx;
+  var bgColor = "black";
+  switch (note) {
+    case 'A':
+      bgColor = "red";
+      x = 0;
+      break;
+    case 'B':
+      bgColor = "orange";
+      x = deltaX;
+      break;
+    case 'C':
+      bgColor = "yellow";
+      x = deltaX * 2;
+      break;
+    case 'D':
+      bgColor = "green";
+      x = deltaX * 3;
+      break;
+    case 'E':
+      bgColor = "blue";
+      x = deltaX * 4;
+      break;
+    case 'F':
+      bgColor = "indigo";
+      x = deltaX * 5;
+      break;
+    case 'G':
+      bgColor = "violet";
+      x = deltaX * 6; 
+      break;
+    default:
+      // none
+  }
+  notes.push(new Note(x, y, bgColor));
+}
   // ** UTILITY FUNCTIONS ** //
   /**
     * Function to keep canvas full screen
