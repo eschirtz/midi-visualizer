@@ -43,25 +43,25 @@
     </div>
     <div class="row" style="margin-top: 2em; text-align: left">
       <div class="" style="">
-        <!-- <h2>Midi Visualizer</h2> -->
         <p>Welcome to <b>Midi Visualizer</b>, an online visualization of your live performances! This application is in the early statges
         of development, but we are working to bring more intricate visualations in the near future. All you need is a midi device and a compatible browser.</p>
         <p>Select from one of the following visualizations.</p>
         <p>If you are a developer, check out our <a href="https://github.com/eschirtz/midi-visualizer">GitHub</a> to contribute and create your own visualizations</p>
         <hr>
-        <div id="midi-device-label"></div>
+        <div class="row" id="midi-device-label"></div>
         <hr>
       </div>
     </div>
-    <div class="row">
-      <button onclick="window.location.href='visualizations/000000-Template/template.html'" type="button" name="button" link>Template</button>
-      <button onclick="window.location.href='visualizations/180320-chunky/chunky.html'" type="button" name="button" link>Chunky</button>
-      <button onclick="window.location.href='visualizations/180320-falldown/falldown.html'" type="button" name="button">Drop Down</button>
-    </div>
+    <div class="row" id="vis-menu"></div>
   </div>
-
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+<!-- Custom Scripts -->
 <script type="text/javascript" src="js/midi-init.js"></script>
+<script type="text/javascript" src="js/Utility.js"></script>
+<script type="text/javascript" src="js/VisData.js"></script>
+<!-- ADD VISUALIZATION SCRIPTS BELOW -->
+<script type="text/javascript" src="js/visualizations/000000-Template/template.js"></script>
+<script type="text/javascript" src="js/visualizations/180320-Demo/demo.js"></script>
 </html>
