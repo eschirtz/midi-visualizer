@@ -1,12 +1,11 @@
 /** FILE-NAME: DEMO
  *  AUTHOR: Eric Schirtzinger
  */
-var visName = "Demo"
+var visName = "Demo"  // Name is used to inflate menu buttons and identify
 var visualization = new VisData(visName);
-visualization.meta.files = "Note.js";
-visualization.image = new Image();
+visualization.meta.files = "Note.js"; // List required files (TODO better dependency handling)
+visualization.image = new Image(); // Will be used for a better menu system with thumbnails
 visualization.image.src = 'images/favicon.png';
-var backgroundColor = DEFAULT_BG_COLOR;
 
 /**
  * run(): Called from index.html to begin visualizer
@@ -17,22 +16,24 @@ var backgroundColor = DEFAULT_BG_COLOR;
  */
 visualization.run = function(){
   // ** SETUP AND INITIALIZATION ** //
+  var backgroundColor = DEFAULT_BG_COLOR;
   /**
    * Set up for the canvas and globals
    */
-  $("#" + CANVAS_ID).remove();
+  $("#" + CANVAS_ID).remove(); // Kill any old canvases
   var canvas = $("<canvas id='" + CANVAS_ID + "'/>");
   var context = canvas[0].getContext('2d');
   canvas[0].width = window.innerWidth;
   canvas[0].height = window.innerHeight;
   canvas.css({
-    'background-color' : DEFAULT_BG_COLOR,
+    'background-color' : backgroundColor,
     'position' : 'fixed',
     'top' : 0,
     'left' : 0
   });
+  // Add to DOM
   $("body").append(canvas);
-
+  // Display "ESC" message to user
   Utility.makeToast(ESC_MESSAGE);
   visualization.meta.isActive = true;
 
@@ -72,6 +73,7 @@ visualization.run = function(){
     });
   }
 
+  // Custom function for this visualizer, creates colored blocks to drop from top
   function drawNote(note, octave, intensity, context){
   var note = note.charAt(0);
   var deltaX = canvas[0].width / 7;
@@ -111,14 +113,15 @@ visualization.run = function(){
       // none
   }
   var note = new Note(x, y, bgColor);
-  console.log(note);
+  // Add to master array
   notes.push(note);
-}
-function drawFader(value){
-  var hue = 360 * (value/128);
-  var color = "hsl(" + hue + ", 100%, 50%)";
-  backgroundColor = color;
-}
+  }
+  // Custom: changes background color
+  function drawFader(value){
+    var hue = 360 * (value/128);
+    var color = "hsl(" + hue + ", 100%, 50%)";
+    backgroundColor = color;
+  }
   // ** UTILITY FUNCTIONS ** //
   /**
     * Function to keep canvas full screen

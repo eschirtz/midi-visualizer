@@ -26,6 +26,7 @@
      if(event.keyCode == 27){
        this.meta.isActive = false;
        $("#" + CANVAS_ID).remove();
+       $(".toast").remove(); 
      }
    });
  }

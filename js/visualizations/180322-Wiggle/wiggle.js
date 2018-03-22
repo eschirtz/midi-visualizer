@@ -1,12 +1,12 @@
-/** FILE-NAME: VISUALISATION NAME HERE
- *  AUTHOR: FIRST LAST
+/** FILE-NAME: Wiggle
+ *  AUTHOR: Eric Schirtzinger
  *
  */
-var visName = "Template";
+var visName = "Wiggle";
 var visualization = new VisData(visName);
 visualization.image = new Image();
 visualization.image.src = 'images/favicon.png';
-
+var backgroundColor = DEFAULT_BG_COLOR;
 
 /**
  * run(): Called from index.html to begin visualizer
@@ -17,7 +17,6 @@ visualization.image.src = 'images/favicon.png';
  */
 visualization.run = function(){
   // ** SETUP AND INITIALIZATION ** //
-  var backgroundColor = DEFAULT_BG_COLOR;
   // Remove any other visualizations
   $("#" + CANVAS_ID).remove();
   var canvas = $("<canvas id='" + CANVAS_ID + "'/>");
@@ -25,7 +24,7 @@ visualization.run = function(){
   canvas[0].width = window.innerWidth;
   canvas[0].height = window.innerHeight;
   canvas.css({
-    'background-color' : backgroundColor,
+    'background-color' : DEFAULT_BG_COLOR,
     'position' : 'fixed',
     'top' : 0,
     'left' : 0
@@ -37,14 +36,17 @@ visualization.run = function(){
 
   // ** ADD YOUR CODE HERE ** //
   // ** MAY ALSO INCLUDE DEPENDENCIES ** //
-
+  var App = new WiggleApp();
+  backgroundColor = App.getColor();
   // ** ADD VISUALIZER CODE BELOW ** //
   function animationLoop(){
     // Clear screen for re-draw
+    canvas[0].width = window.innerWidth; // Hacky clear
     context.fillStyle = backgroundColor;
     context.fillRect(0,0,canvas[0].width,canvas[0].height);
     // ** UPDATE AND RENDER ** //
-
+    App.update(Utility.delta);
+    App.render(context);
     // prepare for next frame
     if(!visualization.meta.isActive){
       return;
@@ -63,7 +65,7 @@ visualization.run = function(){
   window.onresize = function(){
     canvas[0].height = window.innerHeight;
     canvas[0].width = window.innerWidth;
-    context.fillStyle = DEFAULT_BG_COLOR;
+    context.fillStyle = backgroundColor;
     context.fillRect(0,0,canvas[0].width,canvas[0].height);
   }
 }

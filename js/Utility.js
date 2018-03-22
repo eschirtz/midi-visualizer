@@ -5,6 +5,9 @@
  */
 function Utility(){
   // ** TIMING & ANIMATION ** //
+  this.time = function(){
+    return Date.now() / 1000; // Return current time in seconds
+  }
   this.now = 0;
   this.then = 0;
   this.delta = 0;
