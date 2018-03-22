@@ -54,8 +54,34 @@
     <div class="row" style="text-align: center" id="vis-menu"></div>
     <hr>
     <p>If you are a developer, check out our <a href="https://github.com/eschirtz/midi-visualizer">GitHub</a> to contribute and create your own visualizations</p>
+    <pre class="code-example">
+      <code class="code-example-body prettyprint">
+        // ** Self containted and modular objects for each visualizer ** //
+        function VisData(name, img) {
+          this.name;    // Visualizer name
+          this.image;   // Thumbnail image
+          this.run();   // Program functionality
+          // Metadata
+          this.meta = {
+            "hardware" : "midi",
+            "version"  : "1.0",
+            "files"    : ['visdata.js'],
+            "isActive" : false
+          }
+        }
+        // ** Useful helper functions ** //
+        function Utility(){
+          // The time between frame calls used in computing animations
+          this.delta;
+          this.setDelta();
+          this.initDelta();
+          // Generates a pop-up message
+          this.makeToast(text, timeup);
+        }
+      </code>
+    </pre>
     <h6 style="text-align:center">Midi Visualizer is a free and open source application built on the <a href="https://webaudio.github.io/web-midi-api/">WebMidi API</a>. Copyright 2018 by Eric Schirtzinger & Will Black.
-    Vist <a href="https://eschirtz.com">eschirtz.com</a> to learn more about the creator. </h6>
+    Visit <a href="https://eschirtz.com">eschirtz.com</a> to learn more about the creator. </h6>
   </div>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->

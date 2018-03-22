@@ -24,8 +24,9 @@ function Utility(){
     this.then = Date.now();
   }
   // ** UI ELEMENTS ** //
-  this.makeToast = function(text){
+  this.makeToast = function(text, timeup){
     var toast = $("<div class='toast'/>");
+    var timeup = timeup | TOAST_UP_TIME;
     toast.html("<p>" + text + "</p>");
     $("body").append(toast);
 
@@ -36,11 +37,11 @@ function Utility(){
     // Wait to fade out
     setTimeout(function(){
       $(".toast").removeClass("active");
-    }, TOAST_UP_TIME);
+    }, timeup);
     // Wait to kill element
     setTimeout(function(){
       $(".toast").remove();
-    }, TOAST_UP_TIME + TOAST_FADE_TIME);
+    }, timeup + TOAST_FADE_TIME);
   }
 }
 // Create the global Utility object
