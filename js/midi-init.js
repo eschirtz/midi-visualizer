@@ -1,27 +1,35 @@
 // GLOBAL VARIABLES
+var WebMidi = WebMidi || null;
 var visualizationData = []; // Holds VisData objects to conditionally inflate DOM elements
 var midiDeviceFound = false;
+var inputs;
 var midiInput;
-
 $(document).ready(function(){
   /**
     * Check to see if the API loads
     * and print a message if there is a device plugged in
    **/
-  WebMidi.enable(function(error){
-      if(error){
-        console.log("WebMidi could not be enabled.", error);
-      } else {
-        console.log("WebMidi enabled!");
-      }
+  if(WebMidi){
+    WebMidi.enable(function(error){
+        if(error){
+          console.log("WebMidi could not be enabled.", error);
+        } else {
+          console.log("WebMidi enabled!");
+          inputs = WebMidi.inputs;
+        }
+    });
+  }
+  else{
+    console.log("WebMidi is not accessible");
+    inputs = null; 
+  }
 
    /** Set up the document **/
    // Input devices
     var deviceNames = [];
-    var input = WebMidi.inputs;
-    if(input != null){
+    if(inputs != null){
       midiDeviceFound = true;
-      midiInput = input[INPUT_NUMBER];
+      midiInput = inputs[INPUT_NUMBER];
       for(i=0; i<input.length; i++){
         deviceNames.push(input[0].name);
       }
@@ -51,5 +59,5 @@ $(document).ready(function(){
       $("#vis-menu").append(button);
       $("#vis-menu").append("&nbsp;");
     });
-  });
+
 });

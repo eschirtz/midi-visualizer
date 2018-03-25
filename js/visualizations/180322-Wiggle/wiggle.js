@@ -38,6 +38,7 @@ visualization.run = function(){
   // ** MAY ALSO INCLUDE DEPENDENCIES ** //
   var App = new WiggleApp();
   backgroundColor = App.getColor();
+  App.init(); 
   // ** ADD VISUALIZER CODE BELOW ** //
   function animationLoop(){
     // Clear screen for re-draw
@@ -57,6 +58,28 @@ visualization.run = function(){
   // Begin animation loop
   Utility.initDelta();
   animationLoop();
+
+  // ** MIDI HANDLERS ** //
+  if(midiInput){
+    midiInput.addListener('noteon', "all",function (e) {
+        App.logEvent(true); // Record that there was an event
+    });
+    midiInput.addListener('controlchange', "all", function(e){
+      drawFader(e.value);
+    });
+  }
+  // Enable some functions via keyboard
+  else{
+    document.addEventListener('keydown', (event) => {
+      const keyname = event.key;
+      if(keyname === " "){
+        event.preventDefault();
+      }
+      if(keyname){
+        App.logEvent(true);
+      }
+    })
+  }
 
   // ** UTILITY FUNCTIONS ** //
   /**
