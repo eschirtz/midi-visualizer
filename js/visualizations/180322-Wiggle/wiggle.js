@@ -38,7 +38,7 @@ visualization.run = function(){
   // ** MAY ALSO INCLUDE DEPENDENCIES ** //
   var App = new WiggleApp();
   backgroundColor = App.getColor();
-  App.init(); 
+  App.init();
   // ** ADD VISUALIZER CODE BELOW ** //
   function animationLoop(){
     // Clear screen for re-draw
@@ -65,7 +65,7 @@ visualization.run = function(){
         App.logEvent(true); // Record that there was an event
     });
     midiInput.addListener('controlchange', "all", function(e){
-      drawFader(e.value);
+      // drawFader(e.value);
     });
   }
   // Enable some functions via keyboard
