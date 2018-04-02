@@ -4,8 +4,8 @@
 var visName = "Demo"  // Name is used to inflate menu buttons and identify
 var visualization = new VisData(visName);
 visualization.meta.files = "Note.js"; // List required files (TODO better dependency handling)
-visualization.image = new Image(); // Will be used for a better menu system with thumbnails
-visualization.image.src = 'images/favicon.png';
+visualization.imageURL = VIS_PATH + '000000-Template/images/joao-silas-59556-unsplash.jpg'; // Will be used for a better menu system with thumbnails
+// visualization.image.src = 'images/favicon.png';
 
 /**
  * run(): Called from index.html to begin visualizer

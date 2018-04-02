@@ -4,8 +4,8 @@
  */
 var visName = "Template";
 var visualization = new VisData(visName);
-visualization.image = new Image();
-visualization.image.src = 'images/favicon.png';
+visualization.imageURL = VIS_PATH + '180320-Demo/images/waranont-wichittranont-409275-unsplash.jpg';
+// visualization.image.src = 'images/favicon.png';
 
 
 /**

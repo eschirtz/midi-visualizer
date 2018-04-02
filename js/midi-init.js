@@ -21,7 +21,7 @@ $(document).ready(function(){
   }
   else{
     console.log("WebMidi is not accessible");
-    inputs = null; 
+    inputs = null;
   }
 
    /** Set up the document **/
@@ -37,7 +37,7 @@ $(document).ready(function(){
     // Create message
     var deviceListHtml = MIDI_ERROR_MSG;
     if(deviceNames.length > 0){
-      deviceListHtml = "<h4>Connected Devices:</h4><ul>";
+      deviceListHtml = "<h5>Connected Devices:</h5><ul>";
       deviceNames.forEach(function(name){
         deviceListHtml += "<li>" + name + "</li>";
       });
@@ -50,14 +50,17 @@ $(document).ready(function(){
       // Create the button element
       var button = $('<button/>',
         {
-          type: "button",
           class: "button-primary",
+          type: "button",
           text: vis.name,
           click: vis.run,
         });
+      var container = $('<div/>');
+      container.addClass('menu-item');
+      container.css("background-image", "url(" + vis.imageURL + ")");
+      container.append(button);
       // Add the button to the menu
-      $("#vis-menu").append(button);
-      $("#vis-menu").append("&nbsp;");
+      $("#vis-menu").append(container);
     });
 
 });

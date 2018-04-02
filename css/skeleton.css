@@ -60,6 +60,21 @@ __________________________________________________ */
 .code-example-body {
   white-space: pre;
   word-wrap: break-word }
+.menu-item {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 20em;
+}
+.menu-item button {
+  box-shadow: 0px 4px 8px rgba(0,0,0,.5);
+  position: relative;
+  top: 50%;
+  transform: translateY(-19px); /** Half of button size TODO fix magic number **/
+  transition: background-color 0.25s;
+}
+
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
