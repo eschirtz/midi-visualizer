@@ -4,8 +4,7 @@
  */
 var visName = "Wiggle";
 var visualization = new VisData(visName);
-visualization.image = new Image();
-visualization.image.src = 'images/favicon.png';
+visualization.imageURL = VIS_PATH + "180322-Wiggle/images/wiggle-thumb.jpeg"; //new Image();
 var backgroundColor = DEFAULT_BG_COLOR;
 
 /**

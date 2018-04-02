@@ -6,7 +6,7 @@
    // Visualization Name
    this.name = name;
    // Thumbnail Image
-   this.image = img || null;
+   this.imageURL = img || null;
    // Launch the application
    this.run = function(){
      alert("Visualization application implemented here");
@@ -26,7 +26,7 @@
      if(event.keyCode == 27){
        this.meta.isActive = false;
        $("#" + CANVAS_ID).remove();
-       $(".toast").remove(); 
+       $(".toast").remove();
      }
    });
  }

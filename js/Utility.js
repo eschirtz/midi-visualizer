@@ -35,15 +35,15 @@ function Utility(){
 
     // Wait to fade in
     setTimeout(function(){
-      $(".toast").addClass("active");
+      toast.addClass("active");
     }, TOAST_FADE_WAIT);
     // Wait to fade out
     setTimeout(function(){
-      $(".toast").removeClass("active");
+      toast.removeClass("active");
     }, timeup);
     // Wait to kill element
     setTimeout(function(){
-      $(".toast").remove();
+      toast.remove();
     }, timeup + TOAST_FADE_TIME);
   }
 }
