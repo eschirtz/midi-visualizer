@@ -17,21 +17,16 @@ $(document).ready(function(){
           console.log("WebMidi enabled!");
           inputs = WebMidi.inputs;
         }
-    });
-  }
-  else{
-    console.log("WebMidi is not accessible");
-    inputs = null;
-  }
 
    /** Set up the document **/
    // Input devices
     var deviceNames = [];
     if(inputs != null){
       midiDeviceFound = true;
+
       midiInput = inputs[INPUT_NUMBER];
-      for(i=0; i<input.length; i++){
-        deviceNames.push(input[0].name);
+      for(i=0; i<inputs.length; i++){
+        deviceNames.push(inputs[0].name);
       }
     }
     // Create message
@@ -62,5 +57,10 @@ $(document).ready(function(){
       // Add the button to the menu
       $("#vis-menu").append(container);
     });
-
+  });
+}
+else{
+  console.log("WebMidi is not accessible");
+  inputs = null;
+}
 });
