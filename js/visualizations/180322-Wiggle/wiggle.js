@@ -61,9 +61,16 @@ visualization.run = function(){
   // ** MIDI HANDLERS ** //
   if(midiInput){
     midiInput.addListener('noteon', "all",function (e) {
+        var keyXDistance = 25; // number of pixels to offet keys
+        var hue = (e.note.number * 15) % 360;
+        var xPos = (e.note.number * keyXDistance) % window.innerWidth;
         App.logEvent(true); // Record that there was an event
+        App.addBox(xPos, hue);
     });
     midiInput.addListener('controlchange', "all", function(e){
+      //App.logEvent(true);
+      console.log(e.value);
+      App.info.delta.xTarget = (e.value - 128/2) / 1000;
       // drawFader(e.value);
     });
   }
@@ -76,6 +83,7 @@ visualization.run = function(){
       }
       if(keyname){
         App.logEvent(true);
+        App.addBox(0, 100);
       }
     })
   }

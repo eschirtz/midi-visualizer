@@ -1,6 +1,7 @@
 /** App data and update functions **/
 function WiggleApp(){
   // COLORS
+  var BOX_LIFE = 10000;
   this.bgColor = 'rgb(33,33,33)';
   this.bgHue;
   this.primaryColor = 'white';
@@ -10,11 +11,24 @@ function WiggleApp(){
     return this.bgColor;
   }
   this.appElements = [];
+  // Directions
+  this.info = {
+    delta: {
+      x: 0,
+      y: 0.1,
+      xTarget: 0,
+      yTarget: 0.5
+    },
+    speed: {
+      max: 1,
+      min: 0.25
+    },
+  }
   // Objects
   // Low Pass filter to record activity
-  const LPF_DEPTH = 0.5; // #seconds to average over
+  const LPF_DEPTH = 1.5; // #seconds to average over
   const EASE_FACTOR = 15; // Divisor ease factor
-  const MIN_SPEED = 0.25;
+  const MIN_SPEED = 0.75;
   this.lpfData = [];
   // NPS acts as velocity or stepsize
   var nps = 0; // notes per second
@@ -47,7 +61,7 @@ function WiggleApp(){
   this.init = function(){
 
     const boxStartDim = 100;
-    const NUM_BOXES = 128;
+    const NUM_BOXES = 0;
     const HUE_SHIFT = 5;
     const HUE_DEPTH = 90;
     for(var i=0; i<NUM_BOXES; i++){
@@ -57,21 +71,35 @@ function WiggleApp(){
         boxStartDim, boxStartDim);
         box.phi = 2*Math.PI/NUM_BOXES * i;
         var hue = (this.bgHue + HUE_SHIFT + HUE_DEPTH/NUM_BOXES * i) % 360;
-        box.color = "hsl(" + hue + ", 60%, 50%)";//"hsl(" + 360/NUM_BOXES * i + ", 60%, 50%)";
+        box.color = "hsl(" + hue + ", 60%, 50%)";
         this.appElements.push(box);
     }
+  }
+  this.addBox = function(x,hue){
+    const boxStartDim = 100;
+    var box = new Box(x,0,boxStartDim, boxStartDim);
+    box.color = "hsl(" + hue + ", 60%, 50%)";
+    box.life = BOX_LIFE;
+    this.appElements.push(box);
   }
 
   // Update
   this.update = function(delta){
     this.logEvent(false);
     distance += npsSmoothed * delta;
+    this.info.delta.x += (this.info.delta.xTarget - this.info.delta.x) / EASE_FACTOR;
+    this.info.delta.y += (this.info.delta.yTarget - this.info.delta.y) / EASE_FACTOR;
+    var app = this;
     this.appElements.forEach(function(el){
+      // Decrement life count
+      el.life--;
       // Have each box move downward
-      el.velocity[0] = npsSmoothed * 100;
-      el.velocity[1] = npsSmoothed * 20;
-      el.x = (el.x + delta * el.velocity[0]) % (window.innerWidth + el.baseW * 2);
-      el.y = (el.y + delta * el.velocity[1]) % (window.innerHeight + el.baseH * 2);
+      el.velocity[0] = npsSmoothed > app.info.speed.max ? app.info.speed.max : npsSmoothed;
+      el.velocity[1] = npsSmoothed > app.info.speed.max ? app.info.speed.max : npsSmoothed;
+      el.velocity[0] = el.velocity[0] * 500;
+      el.velocity[1] = el.velocity[1] * 50;
+      el.x = (el.x + app.info.delta.x * el.velocity[0]) % (window.innerWidth + el.baseW * 2);
+      el.y = (el.y + app.info.delta.y * el.velocity[1]) % (window.innerHeight + el.baseH * 2);
     });
   }
   // Render
@@ -89,6 +117,7 @@ function Box(x,y,width,height){
   this.velocity = []; // velocity vector
   this.velocity[0] = 100;
   this.velocity[1] = 100;
+  this.life;
   this.color = "white";
   this.draw = function(context, distance){
     var w = Math.cos(distance + this.phi) * this.baseW;
